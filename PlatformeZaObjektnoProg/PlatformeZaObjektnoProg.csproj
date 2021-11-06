@@ -47,12 +47,16 @@
     <Compile Include="Entity\Data.cs" />
     <Compile Include="Entity\ESex.cs" />
     <Compile Include="Entity\ETypeOfRegisteredUser.cs" />
+    <Compile Include="Entity\Instructor.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

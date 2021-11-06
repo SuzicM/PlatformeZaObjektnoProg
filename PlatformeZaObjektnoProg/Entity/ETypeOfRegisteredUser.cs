@@ -9,7 +9,7 @@ namespace PlatformeZaObjektnoProg.Entity
     public enum EUserRole
     {
         Administrator,
-        Instruktor,
+        Instructor,
         Polaznik
     }
 }

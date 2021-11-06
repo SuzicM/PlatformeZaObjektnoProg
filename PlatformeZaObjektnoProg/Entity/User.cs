@@ -79,7 +79,12 @@ namespace PlatformeZaObjektnoProg.Entity
         }
         public override string ToString()
         {
-            return "User: " + Name + ". " + "Role: " + UserRole + "\n" + "Adress: " + Adress.ToString() + "\n" ;
+            return "User: " + Name + ". " + "Role: " + UserRole + "\n" + "Adress: " +  "\n" ;
+        }
+       
+        public string UsersToFile()
+        {
+            return Name + "|" + LastName + "|" + Email + "|" + Jmbg + "|" + Password + "|" + Sex + "|" + UserRole;
         }
     }
 }

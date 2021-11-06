@@ -9,17 +9,23 @@ namespace PlatformeZaObjektnoProg
 {
     class Program
     {
-        
-
-
         public static void PrintAllUsers()
         {
-            foreach (User user in users)
+            foreach (User user in Data.Instance.Users)
             {
                 Console.WriteLine(user.ToString());
             }
         }
 
+        
+        public static void PrintAllInstructors()
+        {
+            foreach (Instructor instructor in Data.Instance.Instructors)
+            {
+                Console.WriteLine(instructor.ToString());
+            }
+        }
+        
         public static void AddNewUser()
         {
 
@@ -64,7 +70,21 @@ namespace PlatformeZaObjektnoProg
                 UserRole = userRole
             };
 
-            users.Add(newUser);
+            if(userRole == EUserRole.Instructor)
+            {
+                 Instructor newInstructor = new Instructor
+                {
+                    User = newUser
+                };
+                Data.Instance.Instructors.Add(newInstructor);
+                Console.WriteLine("New instructor successfully created!");
+                
+            }else
+            {
+                // implementirati kreiranje polaznika
+            }
+
+            Data.Instance.Users.Add(newUser);
             Console.WriteLine("Successfully created new user! ");
         }
 
@@ -75,7 +95,11 @@ namespace PlatformeZaObjektnoProg
             int index = ReturnIndexUserPosition(jmbg);
             if (index > -1)
             {
-                //menjamo korisnika
+                Console.WriteLine("Unesi novo ime: ");
+                string newName = Console.ReadLine();
+                Data.Instance.Users[index].Name = newName;
+                Console.WriteLine("Uspesno ste izmenili korisnika");
+
             }else
             {
                 Console.WriteLine("Ovaj korisnik ne postoji!");
@@ -85,9 +109,9 @@ namespace PlatformeZaObjektnoProg
 
         public static int ReturnIndexUserPosition(string jmbg)
         {
-            for (int i = 0; i < users.Count; i++ )
+            for (int i = 0; i < Data.Instance.Users.Count; i++ )
             {
-                if (users[i].Jmbg.Equals(jmbg))
+                if (Data.Instance.Users[i].Jmbg.Equals(jmbg))
                 {
                     return i;
                 }
@@ -97,7 +121,11 @@ namespace PlatformeZaObjektnoProg
 
         static void Main(string[] args)
         {
-            Initialize();
+
+            Data.Instance.ReadEntities("users.txt");
+            Data.Instance.ReadEntities("instructors.txt");
+
+
             string Option = "";
             do
             {
@@ -105,9 +133,9 @@ namespace PlatformeZaObjektnoProg
                 Console.WriteLine("********User menu********");
                 Console.WriteLine("\n");
                 Console.WriteLine("[1] Ispis korisnika");
-                Console.WriteLine("[2] Unos novog korisnika");
+                Console.WriteLine("[2] Ispis instruktora");
                 Console.WriteLine("[3] Izmena korisnika");
-                Console.WriteLine("[4] Brisanje korisnika");
+                Console.WriteLine("[4] Unos novog instruktora");
                 Console.WriteLine("[5] Kraj");
                 Console.WriteLine("\n");
                 Console.WriteLine("Izaberi akciju: ");
@@ -119,7 +147,7 @@ namespace PlatformeZaObjektnoProg
                         PrintAllUsers();
                         break;
                     case "2":
-                        AddNewUser();
+                        PrintAllInstructors();
                         break;
                     case "3":
                         EditUsers();
