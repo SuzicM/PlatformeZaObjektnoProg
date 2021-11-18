@@ -72,6 +72,15 @@ namespace PlatformeZaObjektnoProg.Entity
             set { _userRole = value; }
         }
 
+        private bool _notDeleted;
+
+        public bool NotDeleted
+        {
+            get { return _notDeleted; }
+            set { _notDeleted = value; }
+        }
+
+
 
         public User() 
         {
@@ -84,7 +93,7 @@ namespace PlatformeZaObjektnoProg.Entity
        
         public string UsersToFile()
         {
-            return Name + "|" + LastName + "|" + Email + "|" + Jmbg + "|" + Password + "|" + Sex + "|" + UserRole;
+            return Name + "|" + LastName + "|" + Email + "|" + Jmbg + "|" + Password + "|" + Sex + "|" + UserRole + "|" + NotDeleted;
         }
     }
 }

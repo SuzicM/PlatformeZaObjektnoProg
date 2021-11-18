@@ -49,8 +49,13 @@
     <Compile Include="Entity\ETypeOfRegisteredUser.cs" />
     <Compile Include="Entity\Instructor.cs" />
     <Compile Include="Entity\User.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IInstructorService.cs" />
+    <Compile Include="Services\InstructorService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

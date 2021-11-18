@@ -1,2 +1,2 @@
-Marko|Markovic|markom@gmail.com|1928471827421|marko123|M|Administrator
-Nikola|Nikolic|nikolan@gmail.com|7318927391846|123nikolic|M|Polaznik
+Marko|Markovic|markom@gmail.com|1928471827421|marko123|M|Administrator|True
+Nikola|Nikolic|nikolan@gmail.com|7318927391846|123nikolic|M|Polaznik|True

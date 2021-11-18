@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlatformeZaObjektnoProg.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,14 @@ namespace PlatformeZaObjektnoProg.Entity
     public sealed class Data
     {
         private static readonly Data instance = new Data();
+        private IUserService userService;
+        private IUserService instructorService;
+
+        private Data()
+        {
+            userService = new UserService();
+            instructorService = new InstructorService();
+        }
         static Data()
         {
 
@@ -35,6 +44,7 @@ namespace PlatformeZaObjektnoProg.Entity
                 Street = "Cara Dusana",
                 Number = "1b",
             };
+           
             User user1 = new User
             {
                 Name = "Marko",
@@ -45,6 +55,7 @@ namespace PlatformeZaObjektnoProg.Entity
                 Email = "markom@gmail.com",
                 Password = "marko123",
                 UserRole = EUserRole.Administrator,
+                NotDeleted = true
             };
 
             User user2 = new User
@@ -57,6 +68,7 @@ namespace PlatformeZaObjektnoProg.Entity
                 Email = "nikolan@gmail.com",
                 Password = "123nikolic",
                 UserRole = EUserRole.Polaznik,
+                NotDeleted = true
             };
 
 
@@ -69,106 +81,30 @@ namespace PlatformeZaObjektnoProg.Entity
             Users.Add(user1);
             Users.Add(user2);
             Instructors.Add(instructor1);
-
+           
         }
 
         public void SaveEntities(string fileName)
         {
             if(fileName.Contains("users"))
             {
-                SaveUsers(fileName);
+                userService.SaveUsers(fileName);
             }else if (fileName.Contains("instructors"))
             {
-                SaveInstructors(fileName);
+                instructorService.SaveUsers(fileName);
             }
         }
 
-        private void SaveUsers(string fileName)
-        {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + fileName))
-            {
-                foreach (User user in Users)
-                {
-                    file.WriteLine(user.UsersToFile());
-                }
-            }
-        }
-
-        private void SaveInstructors(string fileName)
-        {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + fileName))
-            {
-                foreach (Instructor instructor in Instructors)
-                {
-                    file.WriteLine(instructor.InstructorToFile());
-                }
-            }
-        }
 
         public void ReadEntities(string fileName)
         {
             if (fileName.Contains("users"))
             {
-                ReadUsers(fileName);
+                userService.ReadUsers(fileName);
             }
             else if (fileName.Contains("instructors"))
             {
-                ReadInstructors(fileName);
-            }
-        }
-
-        private void ReadUsers(string fileName)
-        {
-            Users = new List<User>();
-            using(StreamReader file = new StreamReader(@"../../Resources/" + fileName))
-            {
-                string line;
-
-                while((line = file.ReadLine()) != null)
-                {
-                    string[] UserFromFile = line.Split('|');
-                    Enum.TryParse(UserFromFile[5], out ESex sex);
-                    Enum.TryParse(UserFromFile[6], out EUserRole userRole);
-
-                    User user = new User
-                    {
-                        Name = UserFromFile[0],
-                        LastName = UserFromFile[1],
-                        Email = UserFromFile[2],
-                        Jmbg = UserFromFile[3],
-                        Password = UserFromFile[4],
-                        Sex = sex,
-                        UserRole = userRole
-                    };
-
-                    Users.Add(user);
-                }
-            }
-            
-        }
-
-        private void ReadInstructors(string fileName)
-        {
-            Instructors = new List<Instructor>();
-            using (StreamReader file = new StreamReader(@"../../Resources/" + fileName))
-            {
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    string[] InstructorFromFile = line.Split('|');
-
-                    //pronalazenje korisnika
-                    User user = Users.Find(u => u.Jmbg.Equals(InstructorFromFile[1]));
-
-                    Instructor instructor = new Instructor
-                    {
-                        Training = InstructorFromFile[0],
-                        User = user
-                    };
-
-                    Instructors.Add(instructor);
-                }
+                instructorService.ReadUsers(fileName);
             }
         }
 
